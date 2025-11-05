@@ -1,208 +1,188 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Электронный дневник — вкладки по предметам</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-  .top-buttons {
-    margin-bottom: 15px;
-  }
-  button {
-    padding: 8px 14px;
-    margin-right: 8px;
-    cursor: pointer;
-    border: 1px solid #888;
-    border-radius: 6px;
-    background-color: #f2f2f2;
-    transition: 0.2s;
-  }
-  button:hover {
-    background-color: #ddd;
-  }
-  .tabs {
-    display: flex;
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 10px;
-    flex-wrap: wrap;
-  }
-  .tab {
-    padding: 10px 15px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    background-color: #f1f1f1;
-    margin-right: 2px;
-    border-radius: 5px 5px 0 0;
-  }
-  .tab.active {
-    background-color: #fff;
-    font-weight: bold;
-  }
-  .tabContent {
-    display: none;
-  }
-  .tabContent.active {
-    display: block;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    overflow-x: auto;
-  }
-  th, td {
-    border: 1px solid #ccc;
-    padding: 4px;
-    min-width: 50px;
-    text-align: center;
-  }
-  input[type="number"] {
-    width: 50px;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📘 Электронный дневник</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f6f8fa;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 80%;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #0078ff;
+      color: white;
+    }
+
+    input[type="text"], input[type="number"] {
+      margin: 5px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin: 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #0078ff;
+      color: white;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background-color: #005ecb;
+    }
+
+    #controls {
+      margin-bottom: 15px;
+    }
+
+    .deleteBtn {
+      background-color: #ff4d4d;
+    }
+    .deleteBtn:hover {
+      background-color: #cc0000;
+    }
+
+    .editBtn {
+      background-color: #ffa500;
+    }
+    .editBtn:hover {
+      background-color: #cc8400;
+    }
+  </style>
 </head>
 <body>
+  <h1>📘 Электронный дневник</h1>
 
-<h1>Электронный дневник по предметам</h1>
+  <div id="controls">
+    <input type="text" id="subjectInput" placeholder="Предмет">
+    <input type="number" id="gradeInput" placeholder="Оценка" min="1" max="10">
+    <button id="addGradeBtn">➕ Добавить</button>
+    <button id="saveGradesBtn">💾 Сохранить</button>
+    <button id="clearAllBtn">🧹 Очистить всё</button>
+  </div>
 
-<div class="top-buttons">
-  <button onclick="showLogin()">Войти как учитель</button>
-  <button onclick="saveAll()">💾 Сохранить оценки</button>
-  <button onclick="location.reload()">🔄 Обновить страницу</button>
-</div>
+  <table id="gradesTable">
+    <thead>
+      <tr>
+        <th>№</th>
+        <th>Предмет</th>
+        <th>Оценка</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody id="gradesBody"></tbody>
+  </table>
 
-<div class="tabs">
-  <div class="tab active" onclick="openTab(event, 'bilelit')">Бел.лит</div>
-  <div class="tab" onclick="openTab(event, 'belyaz')">Бел.яз</div>
-  <div class="tab" onclick="openTab(event, 'russlit')">Русск.лит</div>
-  <div class="tab" onclick="openTab(event, 'russya')">Русск.яз</div>
-  <div class="tab" onclick="openTab(event, 'matem')">Матем</div>
-  <div class="tab" onclick="openTab(event, 'fizika')">Физика</div>
-  <div class="tab" onclick="openTab(event, 'biologiya')">Биология</div>
-  <div class="tab" onclick="openTab(event, 'belist')">Бел.ист</div>
-  <div class="tab" onclick="openTab(event, 'vsemist')">Всем.ист</div>
-  <div class="tab" onclick="openTab(event, 'franc')">Франц.яз</div>
-  <div class="tab" onclick="openTab(event, 'inform')">Информ</div>
-  <div class="tab" onclick="openTab(event, 'trud')">Труд</div>
-</div>
+  <script>
+    const gradesBody = document.getElementById("gradesBody");
+    const addGradeBtn = document.getElementById("addGradeBtn");
+    const saveGradesBtn = document.getElementById("saveGradesBtn");
+    const clearAllBtn = document.getElementById("clearAllBtn");
 
-<!-- Контейнеры вкладок -->
-<div id="bilelit" class="tabContent active"><h2>Бел.лит</h2><div><table></table></div></div>
-<div id="belyaz" class="tabContent"><h2>Бел.яз</h2><div><table></table></div></div>
-<div id="russlit" class="tabContent"><h2>Русск.лит</h2><div><table></table></div></div>
-<div id="russya" class="tabContent"><h2>Русск.яз</h2><div><table></table></div></div>
-<div id="matem" class="tabContent"><h2>Матем</h2><div><table></table></div></div>
-<div id="fizika" class="tabContent"><h2>Физика</h2><div><table></table></div></div>
-<div id="biologiya" class="tabContent"><h2>Биология</h2><div><table></table></div></div>
-<div id="belist" class="tabContent"><h2>Бел.ист</h2><div><table></table></div></div>
-<div id="vsemist" class="tabContent"><h2>Всем.ист</h2><div><table></table></div></div>
-<div id="franc" class="tabContent"><h2>Франц.яз</h2><div><table></table></div></div>
-<div id="inform" class="tabContent"><h2>Информ</h2><div><table></table></div></div>
-<div id="trud" class="tabContent"><h2>Труд</h2><div><table></table></div></div>
-
-<script>
-const subjects = ['bilelit','belyaz','russlit','russya','matem','fizika','biologiya','belist','vsemist','franc','inform','trud'];
-const totalRows = 29;
-const totalColumns = 60;
-
-// переключение вкладок
-function openTab(evt, tabId) {
-  document.querySelectorAll('.tabContent').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
-  evt.currentTarget.classList.add('active');
-}
-
-// создать таблицы
-for (const subj of subjects) {
-  const table = document.querySelector(`#${subj} table`);
-  const thead = document.createElement('thead');
-  const headerRow = document.createElement('tr');
-  const thNum = document.createElement('th');
-  thNum.textContent = '№';
-  headerRow.appendChild(thNum);
-
-  for (let i=2; i<=totalColumns; i++) {
-    const th = document.createElement('th');
-    headerRow.appendChild(th);
-  }
-  thead.appendChild(headerRow);
-  table.appendChild(thead);
-
-  const tbody = document.createElement('tbody');
-  for (let i=1; i<=totalRows; i++) {
-    const row = document.createElement('tr');
-    const tdNum = document.createElement('td');
-    tdNum.textContent = i;
-    row.appendChild(tdNum);
-
-    for (let col=2; col<=totalColumns; col++) {
-      const td = document.createElement('td');
-      const input = document.createElement('input');
-      input.type = 'number';
-      input.min = '1';
-      input.max = '5';
-      input.id = `${subj}_grade_${i}_${col}`;
-      input.disabled = true;
-      td.appendChild(input);
-      row.appendChild(td);
-    }
-    tbody.appendChild(row);
-  }
-  table.appendChild(tbody);
-}
-
-// вход учителя
-function showLogin() {
-  const pwd = prompt("Введите пароль учителя:");
-  if (pwd === "1324576800") {
-    alert("Режим учителя активирован — теперь можно редактировать оценки.");
-    document.querySelectorAll('input').forEach(el => el.disabled = false);
-  } else {
-    alert("Неверный пароль!");
-  }
-}
-
-// сохранить все данные
-function saveAll() {
-  const data = {};
-  for (const subj of subjects) {
-    data[subj] = [];
-    for (let i=1; i<=totalRows; i++) {
-      const row = [];
-      for (let col=2; col<=totalColumns; col++) {
-        const val = document.getElementById(`${subj}_grade_${i}_${col}`).value || '';
-        row.push(val);
+    function loadGrades() {
+      const data = localStorage.getItem("grades");
+      if (data) {
+        const grades = JSON.parse(data);
+        grades.forEach((g, i) => addRow(g.subject, g.grade, i + 1));
       }
-      data[subj].push(row);
     }
-  }
-  localStorage.setItem('gradesData', JSON.stringify(data));
-  alert("✅ Все оценки сохранены!");
-}
 
-// загрузить данные при открытии
-window.onload = function() {
-  const saved = localStorage.getItem('gradesData');
-  if (saved) {
-    const data = JSON.parse(saved);
-    for (const subj of subjects) {
-      if (data[subj]) {
-        for (let i=1; i<=totalRows; i++) {
-          for (let col=2; col<=totalColumns; col++) {
-            const input = document.getElementById(`${subj}_grade_${i}_${col}`);
-            if (input) input.value = data[subj][i-1]?.[col-2] || '';
-          }
+    function addRow(subject, grade, index = gradesBody.children.length + 1) {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${index}</td>
+        <td contenteditable="true">${subject}</td>
+        <td contenteditable="true">${grade}</td>
+        <td>
+          <button class="editBtn">✏️</button>
+          <button class="deleteBtn">🗑️</button>
+        </td>
+      `;
+
+      const editBtn = row.querySelector(".editBtn");
+      const deleteBtn = row.querySelector(".deleteBtn");
+
+      editBtn.addEventListener("click", () => {
+        const newSubject = prompt("Изменить предмет:", row.children[1].textContent);
+        const newGrade = prompt("Изменить оценку:", row.children[2].textContent);
+        if (newSubject !== null && newGrade !== null) {
+          row.children[1].textContent = newSubject;
+          row.children[2].textContent = newGrade;
         }
-      }
-    }
-  }
-};
-</script>
+      });
 
+      deleteBtn.addEventListener("click", () => {
+        row.remove();
+        updateRowNumbers();
+      });
+
+      gradesBody.appendChild(row);
+    }
+
+    function updateRowNumbers() {
+      const rows = gradesBody.querySelectorAll("tr");
+      rows.forEach((r, i) => {
+        r.children[0].textContent = i + 1;
+      });
+    }
+
+    addGradeBtn.addEventListener("click", () => {
+      const subject = document.getElementById("subjectInput").value.trim();
+      const grade = document.getElementById("gradeInput").value.trim();
+      if (subject && grade) {
+        addRow(subject, grade);
+        document.getElementById("subjectInput").value = "";
+        document.getElementById("gradeInput").value = "";
+      } else {
+        alert("Введите предмет и оценку!");
+      }
+    });
+
+    saveGradesBtn.addEventListener("click", () => {
+      const rows = gradesBody.querySelectorAll("tr");
+      const grades = Array.from(rows).map(r => ({
+        subject: r.children[1].textContent,
+        grade: r.children[2].textContent
+      }));
+      localStorage.setItem("grades", JSON.stringify(grades));
+      alert("Оценки сохранены 💾");
+    });
+
+    clearAllBtn.addEventListener("click", () => {
+      if (confirm("Вы уверены, что хотите удалить все оценки?")) {
+        localStorage.removeItem("grades");
+        gradesBody.innerHTML = "";
+      }
+    });
+
+    loadGrades();
+  </script>
 </body>
 </html>
