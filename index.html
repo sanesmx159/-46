@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Электронный дневник — вкладки по предметам</title>
+<title>Р­Р»РµРєС‚СЂРѕРЅРЅС‹Р№ РґРЅРµРІРЅРёРє вЂ” РІРєР»Р°РґРєРё РїРѕ РїСЂРµРґРјРµС‚Р°Рј</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -15,7 +15,7 @@
     margin-bottom: 10px;
   }
 
-  /* кнопка входа учителя */
+  /* РєРЅРѕРїРєР° РІС…РѕРґР° СѓС‡РёС‚РµР»СЏ */
   #loginBtn {
     padding: 8px 14px;
     font-size: 14px;
@@ -37,7 +37,7 @@
     cursor: default;
   }
 
-  /* меню вкладок */
+  /* РјРµРЅСЋ РІРєР»Р°РґРѕРє */
   .tabs {
     display: flex;
     flex-wrap: wrap;
@@ -65,7 +65,7 @@
     font-weight: bold;
   }
 
-  /* блоки таблиц */
+  /* Р±Р»РѕРєРё С‚Р°Р±Р»РёС† */
   .tabContent {
     display: none;
   }
@@ -74,7 +74,7 @@
     display: block;
   }
 
-  /* таблица */
+  /* С‚Р°Р±Р»РёС†Р° */
   table {
     border-collapse: collapse;
     width: 100%;
@@ -95,47 +95,47 @@
 </head>
 <body>
 
-<h1>Электронный дневник по предметам</h1>
+<h1>Р­Р»РµРєС‚СЂРѕРЅРЅС‹Р№ РґРЅРµРІРЅРёРє РїРѕ РїСЂРµРґРјРµС‚Р°Рј</h1>
 
-<!-- Кнопка входа учителя -->
-<button id="loginBtn" onclick="showLogin()">Войти как учитель</button>
+<!-- РљРЅРѕРїРєР° РІС…РѕРґР° СѓС‡РёС‚РµР»СЏ -->
+<button id="loginBtn" onclick="showLogin()">Р’РѕР№С‚Рё РєР°Рє СѓС‡РёС‚РµР»СЊ</button>
 
-<!-- Меню вкладок -->
+<!-- РњРµРЅСЋ РІРєР»Р°РґРѕРє -->
 <div class="tabs">
-  <div class="tab active" onclick="openTab(event, 'bilelit')">Бел.лит</div>
-  <div class="tab" onclick="openTab(event, 'belyaz')">Бел.яз</div>
-  <div class="tab" onclick="openTab(event, 'russlit')">Русск.лит</div>
-  <div class="tab" onclick="openTab(event, 'russya')">Русск.яз</div>
-  <div class="tab" onclick="openTab(event, 'matem')">Матем</div>
-  <div class="tab" onclick="openTab(event, 'fizika')">Физика</div>
-  <div class="tab" onclick="openTab(event, 'biologiya')">Биология</div>
-  <div class="tab" onclick="openTab(event, 'belist')">Бел.ист</div>
-  <div class="tab" onclick="openTab(event, 'vsemist')">Всем.ист</div>
-  <div class="tab" onclick="openTab(event, 'franc')">Франц.яз</div>
-  <div class="tab" onclick="openTab(event, 'inform')">Информ</div>
-  <div class="tab" onclick="openTab(event, 'trud')">Труд</div>
+  <div class="tab active" onclick="openTab(event, 'bilelit')">Р‘РµР».Р»РёС‚</div>
+  <div class="tab" onclick="openTab(event, 'belyaz')">Р‘РµР».СЏР·</div>
+  <div class="tab" onclick="openTab(event, 'russlit')">Р СѓСЃСЃРє.Р»РёС‚</div>
+  <div class="tab" onclick="openTab(event, 'russya')">Р СѓСЃСЃРє.СЏР·</div>
+  <div class="tab" onclick="openTab(event, 'matem')">РњР°С‚РµРј</div>
+  <div class="tab" onclick="openTab(event, 'fizika')">Р¤РёР·РёРєР°</div>
+  <div class="tab" onclick="openTab(event, 'biologiya')">Р‘РёРѕР»РѕРіРёСЏ</div>
+  <div class="tab" onclick="openTab(event, 'belist')">Р‘РµР».РёСЃС‚</div>
+  <div class="tab" onclick="openTab(event, 'vsemist')">Р’СЃРµРј.РёСЃС‚</div>
+  <div class="tab" onclick="openTab(event, 'franc')">Р¤СЂР°РЅС†.СЏР·</div>
+  <div class="tab" onclick="openTab(event, 'inform')">РРЅС„РѕСЂРј</div>
+  <div class="tab" onclick="openTab(event, 'trud')">РўСЂСѓРґ</div>
 </div>
 
-<!-- Таблицы для каждой вкладки -->
-<div id="bilelit" class="tabContent active"><h2>Бел.лит</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="belyaz" class="tabContent"><h2>Бел.яз</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="russlit" class="tabContent"><h2>Русск.лит</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="russya" class="tabContent"><h2>Русск.яз</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="matem" class="tabContent"><h2>Матем</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="fizika" class="tabContent"><h2>Физика</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="biologiya" class="tabContent"><h2>Биология</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="belist" class="tabContent"><h2>Бел.ист</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="vsemist" class="tabContent"><h2>Всем.ист</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="franc" class="tabContent"><h2>Франц.яз</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="inform" class="tabContent"><h2>Информ</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="trud" class="tabContent"><h2>Труд</h2><div style="overflow-x:auto;"><table></table></div></div>
+<!-- РўР°Р±Р»РёС†С‹ РґР»СЏ РєР°Р¶РґРѕР№ РІРєР»Р°РґРєРё -->
+<div id="bilelit" class="tabContent active"><h2>Р‘РµР».Р»РёС‚</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="belyaz" class="tabContent"><h2>Р‘РµР».СЏР·</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="russlit" class="tabContent"><h2>Р СѓСЃСЃРє.Р»РёС‚</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="russya" class="tabContent"><h2>Р СѓСЃСЃРє.СЏР·</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="matem" class="tabContent"><h2>РњР°С‚РµРј</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="fizika" class="tabContent"><h2>Р¤РёР·РёРєР°</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="biologiya" class="tabContent"><h2>Р‘РёРѕР»РѕРіРёСЏ</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="belist" class="tabContent"><h2>Р‘РµР».РёСЃС‚</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="vsemist" class="tabContent"><h2>Р’СЃРµРј.РёСЃС‚</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="franc" class="tabContent"><h2>Р¤СЂР°РЅС†.СЏР·</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="inform" class="tabContent"><h2>РРЅС„РѕСЂРј</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="trud" class="tabContent"><h2>РўСЂСѓРґ</h2><div style="overflow-x:auto;"><table></table></div></div>
 
 <script>
 const subjects = ['bilelit','belyaz','russlit','russya','matem','fizika','biologiya','belist','vsemist','franc','inform','trud'];
 const totalRows = 29;
 const totalColumns = 60;
 
-// Переключение вкладок
+// РџРµСЂРµРєР»СЋС‡РµРЅРёРµ РІРєР»Р°РґРѕРє
 function openTab(evt, tabId) {
   const tabContents = document.getElementsByClassName('tabContent');
   for (let i=0; i<tabContents.length; i++) tabContents[i].classList.remove('active');
@@ -145,13 +145,13 @@ function openTab(evt, tabId) {
   evt.currentTarget.classList.add('active');
 }
 
-// Создание таблиц
+// РЎРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС†
 for (const subj of subjects) {
   const tableDiv = document.querySelector(`#${subj} div > table`);
   const thead = document.createElement('thead');
   const headerRow = document.createElement('tr');
   const thNum = document.createElement('th');
-  thNum.textContent = '№';
+  thNum.textContent = 'в„–';
   headerRow.appendChild(thNum);
   for (let i=2; i<=totalColumns; i++) {
     const th = document.createElement('th');
@@ -184,12 +184,12 @@ for (const subj of subjects) {
   tableDiv.appendChild(tbody);
 }
 
-// Вход учителя
+// Р’С…РѕРґ СѓС‡РёС‚РµР»СЏ
 function showLogin() {
-  const pwd = prompt("Введите пароль учителя:");
+  const pwd = prompt("Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ СѓС‡РёС‚РµР»СЏ:");
   const btn = document.getElementById('loginBtn');
   if (pwd === "1324576800") {
-    alert("Вы успешно вошли как учитель. Можно редактировать оценки.");
+    alert("Р’С‹ СѓСЃРїРµС€РЅРѕ РІРѕС€Р»Рё РєР°Рє СѓС‡РёС‚РµР»СЊ. РњРѕР¶РЅРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°С‚СЊ РѕС†РµРЅРєРё.");
     for (const subj of subjects) {
       for(let i=1; i<=totalRows; i++) {
         for(let col=2; col<=totalColumns; col++) {
@@ -197,13 +197,14 @@ function showLogin() {
         }
       }
     }
-    btn.textContent = "Вы вошли как учитель";
+    btn.textContent = "Р’С‹ РІРѕС€Р»Рё РєР°Рє СѓС‡РёС‚РµР»СЊ";
     btn.disabled = true;
   } else {
-    alert("Неверный пароль");
+    alert("РќРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ");
   }
 }
 </script>
 
 </body>
 </html>
+
