@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
@@ -8,43 +8,28 @@
   body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    background-color: #fafafa;
   }
-
-  h1 {
-    margin-bottom: 10px;
-  }
-
-  /* кнопка входа учителя */
-  #loginBtn {
-    padding: 8px 14px;
-    font-size: 14px;
-    border: 1px solid #888;
-    border-radius: 5px;
-    background-color: #f1f1f1;
-    cursor: pointer;
-    transition: 0.2s;
+  .top-buttons {
     margin-bottom: 15px;
   }
-
-  #loginBtn:hover {
-    background-color: #e2e2e2;
+  button {
+    padding: 8px 14px;
+    margin-right: 8px;
+    cursor: pointer;
+    border: 1px solid #888;
+    border-radius: 6px;
+    background-color: #f2f2f2;
+    transition: 0.2s;
   }
-
-  #loginBtn:disabled {
-    background-color: #c9ffc9;
-    border-color: #7fd67f;
-    cursor: default;
+  button:hover {
+    background-color: #ddd;
   }
-
-  /* меню вкладок */
   .tabs {
     display: flex;
-    flex-wrap: wrap;
     border-bottom: 2px solid #ccc;
     margin-bottom: 10px;
+    flex-wrap: wrap;
   }
-
   .tab {
     padding: 10px 15px;
     cursor: pointer;
@@ -53,41 +38,28 @@
     background-color: #f1f1f1;
     margin-right: 2px;
     border-radius: 5px 5px 0 0;
-    transition: 0.2s;
   }
-
-  .tab:hover {
-    background-color: #e7e7e7;
-  }
-
   .tab.active {
     background-color: #fff;
     font-weight: bold;
   }
-
-  /* блоки таблиц */
   .tabContent {
     display: none;
   }
-
   .tabContent.active {
     display: block;
   }
-
-  /* таблица */
   table {
     border-collapse: collapse;
     width: 100%;
     overflow-x: auto;
   }
-
   th, td {
     border: 1px solid #ccc;
     padding: 4px;
     min-width: 50px;
     text-align: center;
   }
-
   input[type="number"] {
     width: 50px;
   }
@@ -97,10 +69,12 @@
 
 <h1>Электронный дневник по предметам</h1>
 
-<!-- Кнопка входа учителя -->
-<button id="loginBtn" onclick="showLogin()">Войти как учитель</button>
+<div class="top-buttons">
+  <button onclick="showLogin()">Войти как учитель</button>
+  <button onclick="saveAll()">💾 Сохранить оценки</button>
+  <button onclick="location.reload()">🔄 Обновить страницу</button>
+</div>
 
-<!-- Меню вкладок -->
 <div class="tabs">
   <div class="tab active" onclick="openTab(event, 'bilelit')">Бел.лит</div>
   <div class="tab" onclick="openTab(event, 'belyaz')">Бел.яз</div>
@@ -116,50 +90,48 @@
   <div class="tab" onclick="openTab(event, 'trud')">Труд</div>
 </div>
 
-<!-- Таблицы для каждой вкладки -->
-<div id="bilelit" class="tabContent active"><h2>Бел.лит</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="belyaz" class="tabContent"><h2>Бел.яз</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="russlit" class="tabContent"><h2>Русск.лит</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="russya" class="tabContent"><h2>Русск.яз</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="matem" class="tabContent"><h2>Матем</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="fizika" class="tabContent"><h2>Физика</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="biologiya" class="tabContent"><h2>Биология</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="belist" class="tabContent"><h2>Бел.ист</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="vsemist" class="tabContent"><h2>Всем.ист</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="franc" class="tabContent"><h2>Франц.яз</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="inform" class="tabContent"><h2>Информ</h2><div style="overflow-x:auto;"><table></table></div></div>
-<div id="trud" class="tabContent"><h2>Труд</h2><div style="overflow-x:auto;"><table></table></div></div>
+<!-- Контейнеры вкладок -->
+<div id="bilelit" class="tabContent active"><h2>Бел.лит</h2><div><table></table></div></div>
+<div id="belyaz" class="tabContent"><h2>Бел.яз</h2><div><table></table></div></div>
+<div id="russlit" class="tabContent"><h2>Русск.лит</h2><div><table></table></div></div>
+<div id="russya" class="tabContent"><h2>Русск.яз</h2><div><table></table></div></div>
+<div id="matem" class="tabContent"><h2>Матем</h2><div><table></table></div></div>
+<div id="fizika" class="tabContent"><h2>Физика</h2><div><table></table></div></div>
+<div id="biologiya" class="tabContent"><h2>Биология</h2><div><table></table></div></div>
+<div id="belist" class="tabContent"><h2>Бел.ист</h2><div><table></table></div></div>
+<div id="vsemist" class="tabContent"><h2>Всем.ист</h2><div><table></table></div></div>
+<div id="franc" class="tabContent"><h2>Франц.яз</h2><div><table></table></div></div>
+<div id="inform" class="tabContent"><h2>Информ</h2><div><table></table></div></div>
+<div id="trud" class="tabContent"><h2>Труд</h2><div><table></table></div></div>
 
 <script>
 const subjects = ['bilelit','belyaz','russlit','russya','matem','fizika','biologiya','belist','vsemist','franc','inform','trud'];
 const totalRows = 29;
 const totalColumns = 60;
 
-// Переключение вкладок
+// переключение вкладок
 function openTab(evt, tabId) {
-  const tabContents = document.getElementsByClassName('tabContent');
-  for (let i=0; i<tabContents.length; i++) tabContents[i].classList.remove('active');
-  const tabs = document.getElementsByClassName('tab');
-  for (let i=0; i<tabs.length; i++) tabs[i].classList.remove('active');
+  document.querySelectorAll('.tabContent').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
   document.getElementById(tabId).classList.add('active');
   evt.currentTarget.classList.add('active');
 }
 
-// Создание таблиц
+// создать таблицы
 for (const subj of subjects) {
-  const tableDiv = document.querySelector(`#${subj} div > table`);
+  const table = document.querySelector(`#${subj} table`);
   const thead = document.createElement('thead');
   const headerRow = document.createElement('tr');
   const thNum = document.createElement('th');
   thNum.textContent = '№';
   headerRow.appendChild(thNum);
+
   for (let i=2; i<=totalColumns; i++) {
     const th = document.createElement('th');
-    th.textContent = '';
     headerRow.appendChild(th);
   }
   thead.appendChild(headerRow);
-  tableDiv.appendChild(thead);
+  table.appendChild(thead);
 
   const tbody = document.createElement('tbody');
   for (let i=1; i<=totalRows; i++) {
@@ -167,13 +139,13 @@ for (const subj of subjects) {
     const tdNum = document.createElement('td');
     tdNum.textContent = i;
     row.appendChild(tdNum);
+
     for (let col=2; col<=totalColumns; col++) {
       const td = document.createElement('td');
       const input = document.createElement('input');
       input.type = 'number';
       input.min = '1';
       input.max = '5';
-      input.placeholder = '';
       input.id = `${subj}_grade_${i}_${col}`;
       input.disabled = true;
       td.appendChild(input);
@@ -181,28 +153,55 @@ for (const subj of subjects) {
     }
     tbody.appendChild(row);
   }
-  tableDiv.appendChild(tbody);
+  table.appendChild(tbody);
 }
 
-// Вход учителя
+// вход учителя
 function showLogin() {
   const pwd = prompt("Введите пароль учителя:");
-  const btn = document.getElementById('loginBtn');
   if (pwd === "1324576800") {
-    alert("Вы успешно вошли как учитель. Можно редактировать оценки.");
+    alert("Режим учителя активирован — теперь можно редактировать оценки.");
+    document.querySelectorAll('input').forEach(el => el.disabled = false);
+  } else {
+    alert("Неверный пароль!");
+  }
+}
+
+// сохранить все данные
+function saveAll() {
+  const data = {};
+  for (const subj of subjects) {
+    data[subj] = [];
+    for (let i=1; i<=totalRows; i++) {
+      const row = [];
+      for (let col=2; col<=totalColumns; col++) {
+        const val = document.getElementById(`${subj}_grade_${i}_${col}`).value || '';
+        row.push(val);
+      }
+      data[subj].push(row);
+    }
+  }
+  localStorage.setItem('gradesData', JSON.stringify(data));
+  alert("✅ Все оценки сохранены!");
+}
+
+// загрузить данные при открытии
+window.onload = function() {
+  const saved = localStorage.getItem('gradesData');
+  if (saved) {
+    const data = JSON.parse(saved);
     for (const subj of subjects) {
-      for(let i=1; i<=totalRows; i++) {
-        for(let col=2; col<=totalColumns; col++) {
-          document.getElementById(`${subj}_grade_${i}_${col}`).disabled = false;
+      if (data[subj]) {
+        for (let i=1; i<=totalRows; i++) {
+          for (let col=2; col<=totalColumns; col++) {
+            const input = document.getElementById(`${subj}_grade_${i}_${col}`);
+            if (input) input.value = data[subj][i-1]?.[col-2] || '';
+          }
         }
       }
     }
-    btn.textContent = "Вы вошли как учитель";
-    btn.disabled = true;
-  } else {
-    alert("Неверный пароль");
   }
-}
+};
 </script>
 
 </body>
