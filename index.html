@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Электронный дневник — вкладки по предметам</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #fafafa;
+  }
+
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  /* кнопка входа учителя */
+  #loginBtn {
+    padding: 8px 14px;
+    font-size: 14px;
+    border: 1px solid #888;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-bottom: 15px;
+  }
+
+  #loginBtn:hover {
+    background-color: #e2e2e2;
+  }
+
+  #loginBtn:disabled {
+    background-color: #c9ffc9;
+    border-color: #7fd67f;
+    cursor: default;
+  }
+
+  /* меню вкладок */
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 10px;
+  }
+
+  .tab {
+    padding: 10px 15px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background-color: #f1f1f1;
+    margin-right: 2px;
+    border-radius: 5px 5px 0 0;
+    transition: 0.2s;
+  }
+
+  .tab:hover {
+    background-color: #e7e7e7;
+  }
+
+  .tab.active {
+    background-color: #fff;
+    font-weight: bold;
+  }
+
+  /* блоки таблиц */
+  .tabContent {
+    display: none;
+  }
+
+  .tabContent.active {
+    display: block;
+  }
+
+  /* таблица */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  th, td {
+    border: 1px solid #ccc;
+    padding: 4px;
+    min-width: 50px;
+    text-align: center;
+  }
+
+  input[type="number"] {
+    width: 50px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Электронный дневник по предметам</h1>
+
+<!-- Кнопка входа учителя -->
+<button id="loginBtn" onclick="showLogin()">Войти как учитель</button>
+
+<!-- Меню вкладок -->
+<div class="tabs">
+  <div class="tab active" onclick="openTab(event, 'bilelit')">Бел.лит</div>
+  <div class="tab" onclick="openTab(event, 'belyaz')">Бел.яз</div>
+  <div class="tab" onclick="openTab(event, 'russlit')">Русск.лит</div>
+  <div class="tab" onclick="openTab(event, 'russya')">Русск.яз</div>
+  <div class="tab" onclick="openTab(event, 'matem')">Матем</div>
+  <div class="tab" onclick="openTab(event, 'fizika')">Физика</div>
+  <div class="tab" onclick="openTab(event, 'biologiya')">Биология</div>
+  <div class="tab" onclick="openTab(event, 'belist')">Бел.ист</div>
+  <div class="tab" onclick="openTab(event, 'vsemist')">Всем.ист</div>
+  <div class="tab" onclick="openTab(event, 'franc')">Франц.яз</div>
+  <div class="tab" onclick="openTab(event, 'inform')">Информ</div>
+  <div class="tab" onclick="openTab(event, 'trud')">Труд</div>
+</div>
+
+<!-- Таблицы для каждой вкладки -->
+<div id="bilelit" class="tabContent active"><h2>Бел.лит</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="belyaz" class="tabContent"><h2>Бел.яз</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="russlit" class="tabContent"><h2>Русск.лит</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="russya" class="tabContent"><h2>Русск.яз</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="matem" class="tabContent"><h2>Матем</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="fizika" class="tabContent"><h2>Физика</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="biologiya" class="tabContent"><h2>Биология</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="belist" class="tabContent"><h2>Бел.ист</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="vsemist" class="tabContent"><h2>Всем.ист</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="franc" class="tabContent"><h2>Франц.яз</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="inform" class="tabContent"><h2>Информ</h2><div style="overflow-x:auto;"><table></table></div></div>
+<div id="trud" class="tabContent"><h2>Труд</h2><div style="overflow-x:auto;"><table></table></div></div>
+
+<script>
+const subjects = ['bilelit','belyaz','russlit','russya','matem','fizika','biologiya','belist','vsemist','franc','inform','trud'];
+const totalRows = 29;
+const totalColumns = 60;
+
+// Переключение вкладок
+function openTab(evt, tabId) {
+  const tabContents = document.getElementsByClassName('tabContent');
+  for (let i=0; i<tabContents.length; i++) tabContents[i].classList.remove('active');
+  const tabs = document.getElementsByClassName('tab');
+  for (let i=0; i<tabs.length; i++) tabs[i].classList.remove('active');
+  document.getElementById(tabId).classList.add('active');
+  evt.currentTarget.classList.add('active');
+}
+
+// Создание таблиц
+for (const subj of subjects) {
+  const tableDiv = document.querySelector(`#${subj} div > table`);
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+  const thNum = document.createElement('th');
+  thNum.textContent = '№';
+  headerRow.appendChild(thNum);
+  for (let i=2; i<=totalColumns; i++) {
+    const th = document.createElement('th');
+    th.textContent = '';
+    headerRow.appendChild(th);
+  }
+  thead.appendChild(headerRow);
+  tableDiv.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
+  for (let i=1; i<=totalRows; i++) {
+    const row = document.createElement('tr');
+    const tdNum = document.createElement('td');
+    tdNum.textContent = i;
+    row.appendChild(tdNum);
+    for (let col=2; col<=totalColumns; col++) {
+      const td = document.createElement('td');
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.min = '1';
+      input.max = '5';
+      input.placeholder = '';
+      input.id = `${subj}_grade_${i}_${col}`;
+      input.disabled = true;
+      td.appendChild(input);
+      row.appendChild(td);
+    }
+    tbody.appendChild(row);
+  }
+  tableDiv.appendChild(tbody);
+}
+
+// Вход учителя
+function showLogin() {
+  const pwd = prompt("Введите пароль учителя:");
+  const btn = document.getElementById('loginBtn');
+  if (pwd === "1324576800") {
+    alert("Вы успешно вошли как учитель. Можно редактировать оценки.");
+    for (const subj of subjects) {
+      for(let i=1; i<=totalRows; i++) {
+        for(let col=2; col<=totalColumns; col++) {
+          document.getElementById(`${subj}_grade_${i}_${col}`).disabled = false;
+        }
+      }
+    }
+    btn.textContent = "Вы вошли как учитель";
+    btn.disabled = true;
+  } else {
+    alert("Неверный пароль");
+  }
+}
+</script>
+
+</body>
+</html>
